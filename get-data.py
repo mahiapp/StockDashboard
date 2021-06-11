@@ -28,5 +28,21 @@ def SaveData(df,filename):
  #   df1 = pd.read_csv('./data/'+str(files[i])+'.csv')
   #  print(df1.head())
 
-data = pdr.get_data_yahoo('MSFT',start=start_date,end=end_date)
-print(data)
+stock = 'MSFT'
+data = pdr.get_data_yahoo(stock,start=start_date,end=end_date)
+#get date from header and insert into data
+data.insert(1,'Stock',stock)
+#print(len(data))
+#i = 0 
+#stocklist = []
+#while i < len(data):
+ #   stocklist.append(stock)
+  #  i = i+1
+#data['Stock'] = stocklist
+data['Change'] = data['Open'] - data['Close'] 
+data.reset_index(inplace=True)
+data = data.rename(columns = {'Stock': 'stock','Open': 'value', 'Change': 'change'})
+output = data.to_csv(columns=['Stock','Open','Change'])
+with open('csv_data.csv','w') as csv_file:
+    data.to_csv(columns=['Date','stock','value','change'],path_or_buf=csv_file)
+#print(output)
