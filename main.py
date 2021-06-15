@@ -6,7 +6,7 @@ import pandas as pd
 from dash.dependencies import Input, Output
 
 # Load data
-df = pd.read_csv('csv_data.csv', index_col=0, parse_dates=True)
+df = pd.read_csv('stock_data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
 
 # Initialize the app
@@ -18,7 +18,6 @@ def get_options(list_stocks):
     dict_list = []
     for i in list_stocks:
         dict_list.append({'label': i, 'value': i})
-
     return dict_list
 
 
@@ -87,4 +86,4 @@ def update_graph(selected_dropdown_value):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+   app.run_server(debug=True)
